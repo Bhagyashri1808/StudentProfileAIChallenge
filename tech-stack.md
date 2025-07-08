@@ -11,7 +11,8 @@ This document outlines a **simplified** technology stack for the Student Profile
 1. **Frontend**: React with Typescript (skip TypeScript for simplicity)
 2. **Backend**: Express.js with minimal middleware
 3. **Database**: MariaDB with raw SQL queries (skip ORM for simplicity)
-4. **Styling**: Tailwind CSS framework (Bootstrap)
+4. **Styling**: Tailwind
+   CSS framework (Bootstrap)
 5. **File Storage**: Database BLOB storage (as specified)
 6. **Authentication**: Simple session-based auth with express-session
 
