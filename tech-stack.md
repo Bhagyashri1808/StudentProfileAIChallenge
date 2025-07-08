@@ -1,19 +1,22 @@
 # Technology Stack - Student Profile & Goal Tracking System
 
 ## Overview
+
 This document outlines a **simplified** technology stack for the Student Profile & Goal Tracking System, following the principle of minimal complexity and maximum maintainability as specified in CLAUDE.md.
 
 ## Simplified Stack Summary (Recommended)
 
 ### Essential Technologies Only
-1. **Frontend**: React with plain JavaScript (skip TypeScript for simplicity)
+
+1. **Frontend**: React with Typescript (skip TypeScript for simplicity)
 2. **Backend**: Express.js with minimal middleware
 3. **Database**: MariaDB with raw SQL queries (skip ORM for simplicity)
-4. **Styling**: Plain CSS or single CSS framework (Bootstrap)
+4. **Styling**: Tailwind CSS framework (Bootstrap)
 5. **File Storage**: Database BLOB storage (as specified)
 6. **Authentication**: Simple session-based auth with express-session
 
 ### Development Approach
+
 - Start with a monolithic architecture
 - Use server-side rendering where possible
 - Minimize external dependencies
@@ -24,11 +27,12 @@ This document outlines a **simplified** technology stack for the Student Profile
 
 ## Full Technology Stack (For Reference)
 
-*Note: The following is a comprehensive list of technologies. For initial development, use only the simplified stack above.*
+_Note: The following is a comprehensive list of technologies. For initial development, use only the simplified stack above._
 
 ## Frontend
 
 ### Core Framework
+
 - **React 18.x** with TypeScript
   - Component-based architecture for reusable UI elements
   - Strong typing for better maintainability
@@ -36,6 +40,7 @@ This document outlines a **simplified** technology stack for the Student Profile
   - Excellent performance with React 18's concurrent features
 
 ### UI Framework & Styling
+
 - **Material-UI (MUI) v5**
   - Comprehensive component library
   - Built-in accessibility features
@@ -47,6 +52,7 @@ This document outlines a **simplified** technology stack for the Student Profile
   - Small bundle size with PurgeCSS
 
 ### State Management
+
 - **Redux Toolkit with RTK Query**
   - Centralized state management
   - Built-in caching for API responses
@@ -54,6 +60,7 @@ This document outlines a **simplified** technology stack for the Student Profile
   - DevTools for debugging
 
 ### Form Handling
+
 - **React Hook Form**
   - Performant form handling
   - Built-in validation
@@ -63,6 +70,7 @@ This document outlines a **simplified** technology stack for the Student Profile
   - Integrates with React Hook Form
 
 ### Data Visualization
+
 - **Recharts**
   - React-specific charting library
   - Responsive charts
@@ -70,12 +78,14 @@ This document outlines a **simplified** technology stack for the Student Profile
   - Customizable components
 
 ### File Handling
+
 - **React Dropzone**
   - Drag-and-drop file uploads
   - File validation
   - Progress tracking
 
 ### Additional Libraries
+
 - **Axios** - HTTP client with interceptors
 - **React Router v6** - Client-side routing
 - **date-fns** - Date manipulation
@@ -85,6 +95,7 @@ This document outlines a **simplified** technology stack for the Student Profile
 ## Backend
 
 ### Core Framework
+
 - **Node.js with Express.js**
   - Fast and scalable
   - Large ecosystem
@@ -92,6 +103,7 @@ This document outlines a **simplified** technology stack for the Student Profile
   - Good for real-time features
 
 ### Language
+
 - **TypeScript**
   - Type safety
   - Better IDE support
@@ -99,6 +111,7 @@ This document outlines a **simplified** technology stack for the Student Profile
   - Self-documenting code
 
 ### Authentication & Authorization
+
 - **Passport.js**
   - Flexible authentication middleware
   - Multiple strategy support
@@ -111,6 +124,7 @@ This document outlines a **simplified** technology stack for the Student Profile
   - Industry standard security
 
 ### API Design
+
 - **RESTful API**
   - Standard HTTP methods
   - Resource-based URLs
@@ -121,6 +135,7 @@ This document outlines a **simplified** technology stack for the Student Profile
   - Custom validators
 
 ### File Processing
+
 - **Multer**
   - Multipart form data handling
   - File upload middleware
@@ -136,6 +151,7 @@ This document outlines a **simplified** technology stack for the Student Profile
   - Buffer input support
 
 ### Email Service
+
 - **Nodemailer**
   - Email sending
   - Template support
@@ -146,6 +162,7 @@ This document outlines a **simplified** technology stack for the Student Profile
   - Template management
 
 ### Background Jobs
+
 - **Bull**
   - Redis-based queue
   - Job scheduling
@@ -153,6 +170,7 @@ This document outlines a **simplified** technology stack for the Student Profile
   - Progress tracking
 
 ### Security Middleware
+
 - **Helmet.js**
   - Security headers
   - XSS protection
@@ -167,6 +185,7 @@ This document outlines a **simplified** technology stack for the Student Profile
 ## Database
 
 ### Primary Database
+
 - **MariaDB 10.11+**
   - MySQL-compatible with enhanced features
   - ACID compliance
@@ -176,6 +195,7 @@ This document outlines a **simplified** technology stack for the Student Profile
   - Active open-source development
 
 ### ORM/Query Builder
+
 - **Prisma**
   - Type-safe database access
   - Auto-generated TypeScript types
@@ -188,6 +208,7 @@ This document outlines a **simplified** technology stack for the Student Profile
   - Better for complex queries
 
 ### File Storage Strategy
+
 - **Database Binary Storage**
   - Files stored as BLOB/LONGBLOB in MariaDB
   - Simplified backup (single database backup)
@@ -196,6 +217,7 @@ This document outlines a **simplified** technology stack for the Student Profile
   - Suitable for files up to 10MB (per requirements)
 
 ### Database Schema for Files
+
 ```sql
 CREATE TABLE uploaded_files (
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -212,6 +234,7 @@ CREATE TABLE uploaded_files (
 ```
 
 ### Caching
+
 - **Redis**
   - Session storage
   - API response caching
@@ -222,12 +245,14 @@ CREATE TABLE uploaded_files (
 ## Infrastructure & DevOps
 
 ### Hosting
+
 - **AWS EC2** or **DigitalOcean Droplets**
   - Scalable compute resources
   - Load balancing options
   - Auto-scaling capabilities
 
 ### Container Orchestration
+
 - **Docker**
   - Consistent development environment
   - Easy deployment
@@ -237,6 +262,7 @@ CREATE TABLE uploaded_files (
   - Multi-container applications
 
 ### CI/CD
+
 - **GitHub Actions**
   - Integrated with repository
   - Automated testing
@@ -244,6 +270,7 @@ CREATE TABLE uploaded_files (
   - Environment secrets management
 
 ### Monitoring & Logging
+
 - **PM2**
   - Process management
   - Clustering
@@ -259,6 +286,7 @@ CREATE TABLE uploaded_files (
   - Release tracking
 
 ### Analytics
+
 - **Google Analytics 4**
   - User behavior tracking
   - Custom events
@@ -271,6 +299,7 @@ CREATE TABLE uploaded_files (
 ## Development Tools
 
 ### Version Control
+
 - **Git with GitHub**
   - Source code management
   - Collaboration features
@@ -278,6 +307,7 @@ CREATE TABLE uploaded_files (
   - Project management
 
 ### Code Quality
+
 - **ESLint**
   - Code linting
   - Consistent code style
@@ -291,6 +321,7 @@ CREATE TABLE uploaded_files (
   - Automated checks
 
 ### Testing
+
 - **Jest**
   - Unit testing
   - Integration testing
@@ -307,6 +338,7 @@ CREATE TABLE uploaded_files (
   - Integration with Jest
 
 ### Documentation
+
 - **Swagger/OpenAPI**
   - API documentation
   - Interactive API explorer
@@ -319,6 +351,7 @@ CREATE TABLE uploaded_files (
 ## Security & Compliance
 
 ### Security Scanning
+
 - **npm audit**
   - Dependency vulnerability scanning
   - Automated fixes
@@ -330,12 +363,14 @@ CREATE TABLE uploaded_files (
   - Security hotspot detection
 
 ### SSL/TLS
+
 - **Let's Encrypt with Certbot**
   - Free SSL certificates
   - Auto-renewal
   - HTTPS enforcement
 
 ### Compliance Tools
+
 - **FERPA Compliance Checklist**
   - Educational records privacy
   - Access controls
@@ -344,6 +379,7 @@ CREATE TABLE uploaded_files (
 ## Performance Optimization
 
 ### Frontend
+
 - **Webpack 5**
   - Module bundling
   - Code splitting
@@ -354,6 +390,7 @@ CREATE TABLE uploaded_files (
   - Route-based code splitting
 
 ### Backend
+
 - **Node.js Cluster**
   - Multi-core utilization
   - Load distribution
@@ -362,6 +399,7 @@ CREATE TABLE uploaded_files (
   - Reduced bandwidth
 
 ### CDN
+
 - **Cloudflare** or **AWS CloudFront**
   - Global content delivery
   - DDoS protection
@@ -371,6 +409,7 @@ CREATE TABLE uploaded_files (
 ## Development Environment
 
 ### IDE
+
 - **Visual Studio Code**
   - TypeScript support
   - Debugging tools
@@ -378,12 +417,14 @@ CREATE TABLE uploaded_files (
   - Git integration
 
 ### Package Management
+
 - **npm** or **yarn**
   - Dependency management
   - Script running
   - Workspaces support
 
 ### Environment Management
+
 - **dotenv**
   - Environment variables
   - Configuration management
@@ -392,6 +433,7 @@ CREATE TABLE uploaded_files (
 ## Database Schema Management
 
 ### Migration Tools
+
 - **Prisma Migrate**
   - Version-controlled schema
   - Rollback support
@@ -399,6 +441,7 @@ CREATE TABLE uploaded_files (
   - MariaDB-specific optimizations
 
 ### Backup Solutions
+
 - **mysqldump** with cron
   - Automated backups
   - Point-in-time recovery
@@ -414,6 +457,7 @@ CREATE TABLE uploaded_files (
 ## Real-time Features (Future Enhancement)
 
 ### WebSocket Support
+
 - **Socket.io**
   - Real-time bidirectional communication
   - Auto-reconnection
@@ -422,12 +466,14 @@ CREATE TABLE uploaded_files (
 ## Mobile Considerations (Future Enhancement)
 
 ### Progressive Web App
+
 - **Workbox**
   - Service worker management
   - Offline support
   - Push notifications
 
 ### React Native (Future)
+
 - Cross-platform mobile development
 - Code sharing with web
 - Native performance
@@ -443,12 +489,14 @@ CREATE TABLE uploaded_files (
 ## Cost Considerations
 
 ### Essential Services (Monthly Estimate)
+
 - Hosting: $50-200 (depending on scale)
 - Database: $20-100 (managed service, includes file storage)
 - Email Service: $0-50 (based on volume)
 - Monitoring: $0-50 (basic tier)
 
 ### Optional Services
+
 - CDN: $0-20 (Cloudflare free tier available)
 - Advanced Analytics: $0-100
 - Premium Support: Variable
@@ -463,19 +511,20 @@ CREATE TABLE uploaded_files (
 
 ## Technology Decision Matrix
 
-| Requirement | Technology Choice | Alternative | Justification |
-|-------------|------------------|-------------|---------------|
-| Frontend Framework | React | Vue.js, Angular | Large ecosystem, team familiarity |
-| Backend Framework | Express.js | Fastify, Koa | Mature, extensive middleware |
-| Database | MariaDB | MySQL, PostgreSQL | MySQL compatibility, better performance, active development |
-| File Storage | Database BLOB | AWS S3, MinIO | Simplified architecture, atomic transactions, single backup |
-| Authentication | JWT + Passport | Auth0, Firebase Auth | Flexibility, cost-effective |
-| Email Service | SendGrid | AWS SES, Mailgun | Reliability, developer experience |
-| Monitoring | Sentry + PM2 | New Relic, DataDog | Cost-effective, sufficient features |
+| Requirement        | Technology Choice | Alternative          | Justification                                               |
+| ------------------ | ----------------- | -------------------- | ----------------------------------------------------------- |
+| Frontend Framework | React             | Vue.js, Angular      | Large ecosystem, team familiarity                           |
+| Backend Framework  | Express.js        | Fastify, Koa         | Mature, extensive middleware                                |
+| Database           | MariaDB           | MySQL, PostgreSQL    | MySQL compatibility, better performance, active development |
+| File Storage       | Database BLOB     | AWS S3, MinIO        | Simplified architecture, atomic transactions, single backup |
+| Authentication     | JWT + Passport    | Auth0, Firebase Auth | Flexibility, cost-effective                                 |
+| Email Service      | SendGrid          | AWS SES, Mailgun     | Reliability, developer experience                           |
+| Monitoring         | Sentry + PM2      | New Relic, DataDog   | Cost-effective, sufficient features                         |
 
 ## File Storage Implementation Details
 
 ### Advantages of Database File Storage
+
 - **Simplified Architecture**: No need for separate file storage service
 - **Atomic Transactions**: File upload and metadata stored in single transaction
 - **Backup Simplicity**: Single database backup includes all files
@@ -483,6 +532,7 @@ CREATE TABLE uploaded_files (
 - **Cost Effective**: No additional storage service costs
 
 ### Implementation Considerations
+
 - **File Size Limits**: 10MB limit per requirements fits well within LONGBLOB (4GB max)
 - **Performance**: Use streaming for file downloads to minimize memory usage
 - **Caching Strategy**: Cache file metadata but not file content in Redis
@@ -490,36 +540,44 @@ CREATE TABLE uploaded_files (
 - **Separate Tables**: Consider separate tables for file metadata vs. content
 
 ### Sample File Handling Code
+
 ```typescript
 // Upload endpoint
-app.post('/upload', multer({ 
-  storage: multer.memoryStorage(),
-  limits: { fileSize: 10 * 1024 * 1024 } // 10MB
-}).single('file'), async (req, res) => {
-  const fileData = req.file.buffer;
-  const fileHash = crypto.createHash('sha256').update(fileData).digest('hex');
-  
-  await prisma.uploadedFiles.create({
-    data: {
-      fileName: req.file.originalname,
-      fileType: req.file.mimetype,
-      fileSize: req.file.size,
-      fileData: fileData,
-      fileHash: fileHash,
-      userId: req.user.id
-    }
-  });
-});
+app.post(
+  "/upload",
+  multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
+  }).single("file"),
+  async (req, res) => {
+    const fileData = req.file.buffer;
+    const fileHash = crypto.createHash("sha256").update(fileData).digest("hex");
+
+    await prisma.uploadedFiles.create({
+      data: {
+        fileName: req.file.originalname,
+        fileType: req.file.mimetype,
+        fileSize: req.file.size,
+        fileData: fileData,
+        fileHash: fileHash,
+        userId: req.user.id,
+      },
+    });
+  }
+);
 
 // Download endpoint with streaming
-app.get('/download/:id', async (req, res) => {
+app.get("/download/:id", async (req, res) => {
   const file = await prisma.uploadedFiles.findUnique({
     where: { id: parseInt(req.params.id) },
-    select: { fileName: true, fileType: true, fileData: true }
+    select: { fileName: true, fileType: true, fileData: true },
   });
-  
-  res.setHeader('Content-Type', file.fileType);
-  res.setHeader('Content-Disposition', `attachment; filename="${file.fileName}"`);
+
+  res.setHeader("Content-Type", file.fileType);
+  res.setHeader(
+    "Content-Disposition",
+    `attachment; filename="${file.fileName}"`
+  );
   res.send(file.fileData);
 });
 ```
