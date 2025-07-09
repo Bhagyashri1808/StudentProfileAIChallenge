@@ -19,7 +19,7 @@ const Dashboard: React.FC = () => {
   }
 
   if (currentView === 'profile') {
-    return <StudentProfile />;
+    return <StudentProfile onNavigateBack={() => setCurrentView('dashboard')} />;
   }
 
   return (

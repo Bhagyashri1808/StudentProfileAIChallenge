@@ -7,7 +7,11 @@ import SkillsSection from './SkillsSection';
 import InterestsSection from './InterestsSection';
 import Loading from '../common/Loading';
 
-const StudentProfilePage: React.FC = () => {
+interface StudentProfilePageProps {
+  onNavigateBack?: () => void;
+}
+
+const StudentProfilePage: React.FC<StudentProfilePageProps> = ({ onNavigateBack }) => {
   const [profile, setProfile] = useState<StudentProfile | null>(null);
   const [goals, setGoals] = useState<Goal[]>([]);
   const [skills, setSkills] = useState<Skill[]>([]);
@@ -100,8 +104,23 @@ const StudentProfilePage: React.FC = () => {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">My Profile</h1>
-          <p className="text-gray-600 mt-2">Manage your profile, goals, skills, and interests</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">My Profile</h1>
+              <p className="text-gray-600 mt-2">Manage your profile, goals, skills, and interests</p>
+            </div>
+            {onNavigateBack && (
+              <button
+                onClick={onNavigateBack}
+                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded flex items-center"
+              >
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Dashboard
+              </button>
+            )}
+          </div>
         </div>
 
         <div className="space-y-8">

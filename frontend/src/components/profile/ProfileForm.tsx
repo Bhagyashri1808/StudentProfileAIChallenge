@@ -1,26 +1,33 @@
-import React, { useState } from 'react';
-import { apiService } from '../../services/api';
-import { type StudentProfile } from '../../types/profile';
+import React, { useState } from "react";
+import { apiService } from "../../services/api";
+import { type StudentProfile } from "../../types/profile";
 
 interface ProfileFormProps {
   profile: StudentProfile;
   onProfileUpdated: (profile: StudentProfile) => void;
 }
 
-const ProfileForm: React.FC<ProfileFormProps> = ({ profile, onProfileUpdated }) => {
+const ProfileForm: React.FC<ProfileFormProps> = ({
+  profile,
+  onProfileUpdated,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
-    studentId: profile.studentId || '',
-    yearLevel: profile.yearLevel || '',
-    major: profile.major || '',
-    bio: profile.bio || '',
+    student_id: profile.student_id || "",
+    year_level: profile.year_level || "",
+    major: profile.major || "",
+    bio: profile.bio || "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -29,14 +36,16 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ profile, onProfileUpdated }) 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       const response = await apiService.updateProfile(formData);
       onProfileUpdated(response.profile);
       setIsEditing(false);
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Failed to update profile');
+      setError(
+        error instanceof Error ? error.message : "Failed to update profile"
+      );
     } finally {
       setLoading(false);
     }
@@ -44,20 +53,22 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ profile, onProfileUpdated }) 
 
   const handleCancel = () => {
     setFormData({
-      studentId: profile.studentId || '',
-      yearLevel: profile.yearLevel || '',
-      major: profile.major || '',
-      bio: profile.bio || '',
+      student_id: profile.student_id || "",
+      year_level: profile.year_level || "",
+      major: profile.major || "",
+      bio: profile.bio || "",
     });
     setIsEditing(false);
-    setError('');
+    setError("");
   };
 
   return (
     <div className="bg-white shadow rounded-lg">
       <div className="px-6 py-4 border-b border-gray-200">
         <div className="flex justify-between items-center">
-          <h2 className="text-lg font-medium text-gray-900">Profile Information</h2>
+          <h2 className="text-lg font-medium text-gray-900">
+            Profile Information
+          </h2>
           {!isEditing && (
             <button
               onClick={() => setIsEditing(true)}
@@ -80,14 +91,17 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ profile, onProfileUpdated }) 
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="studentId" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="student_id"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Student ID
                 </label>
                 <input
                   type="text"
-                  id="studentId"
-                  name="studentId"
-                  value={formData.studentId}
+                  id="student_id"
+                  name="student_id"
+                  value={formData.student_id}
                   onChange={handleChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter your student ID"
@@ -95,13 +109,16 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ profile, onProfileUpdated }) 
               </div>
 
               <div>
-                <label htmlFor="yearLevel" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="year_level"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Year Level
                 </label>
                 <select
-                  id="yearLevel"
-                  name="yearLevel"
-                  value={formData.yearLevel}
+                  id="year_level"
+                  name="year_level"
+                  value={formData.year_level}
                   onChange={handleChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 >
@@ -116,7 +133,10 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ profile, onProfileUpdated }) 
               </div>
 
               <div className="md:col-span-2">
-                <label htmlFor="major" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="major"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Major/Program
                 </label>
                 <input
@@ -131,7 +151,10 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ profile, onProfileUpdated }) 
               </div>
 
               <div className="md:col-span-2">
-                <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="bio"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Bio
                 </label>
                 <textarea
@@ -159,7 +182,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ profile, onProfileUpdated }) 
                 disabled={loading}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {loading ? 'Saving...' : 'Save Changes'}
+                {loading ? "Saving..." : "Save Changes"}
               </button>
             </div>
           </form>
@@ -167,23 +190,31 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ profile, onProfileUpdated }) 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h3 className="text-sm font-medium text-gray-500">Student ID</h3>
-              <p className="mt-1 text-sm text-gray-900">{profile.studentId || 'Not specified'}</p>
+              <p className="mt-1 text-sm text-gray-900">
+                {profile.student_id || "Not specified"}
+              </p>
             </div>
 
             <div>
               <h3 className="text-sm font-medium text-gray-500">Year Level</h3>
-              <p className="mt-1 text-sm text-gray-900">{profile.yearLevel || 'Not specified'}</p>
+              <p className="mt-1 text-sm text-gray-900">
+                {profile.year_level || "Not specified"}
+              </p>
             </div>
 
             <div className="md:col-span-2">
-              <h3 className="text-sm font-medium text-gray-500">Major/Program</h3>
-              <p className="mt-1 text-sm text-gray-900">{profile.major || 'Not specified'}</p>
+              <h3 className="text-sm font-medium text-gray-500">
+                Major/Program
+              </h3>
+              <p className="mt-1 text-sm text-gray-900">
+                {profile.major || "Not specified"}
+              </p>
             </div>
 
             <div className="md:col-span-2">
               <h3 className="text-sm font-medium text-gray-500">Bio</h3>
               <p className="mt-1 text-sm text-gray-900 whitespace-pre-wrap">
-                {profile.bio || 'No bio provided'}
+                {profile.bio || "No bio provided"}
               </p>
             </div>
           </div>
