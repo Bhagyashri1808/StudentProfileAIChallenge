@@ -42,3 +42,4 @@ Thumbs.db
 # Database
 *.db
 *.sqlite
+backend/database.sqlite

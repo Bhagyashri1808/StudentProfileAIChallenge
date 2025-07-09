@@ -3,8 +3,6 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import session from 'express-session';
 import { db } from './config/sqlite-database';
-import authRoutes from './routes/auth';
-import profileRoutes from './routes/profile';
 
 dotenv.config();
 
@@ -13,39 +11,29 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'http://localhost:5174',
-    process.env.FRONTEND_URL || 'http://localhost:5173'
-  ],
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
   credentials: true
 }));
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'your-secret-key',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === 'production',
+    secure: false,
     httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24 // 24 hours
+    maxAge: 1000 * 60 * 60 * 24
   }
 }));
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/student', profileRoutes);
-
-// Basic route
-app.get('/', (_, res) => {
-  res.json({ message: 'Student Profile API Server' });
+// Basic routes
+app.get('/', (req, res) => {
+  res.json({ message: 'Student Profile API Server (SQLite)' });
 });
 
-// Health check
-app.get('/health', async (_, res) => {
+app.get('/health', async (req, res) => {
   const dbConnected = await db.testConnection();
   res.json({ 
     status: 'OK', 
@@ -54,19 +42,27 @@ app.get('/health', async (_, res) => {
   });
 });
 
+// Test database
+app.get('/test-db', async (req, res) => {
+  try {
+    const result = await db.get('SELECT COUNT(*) as count FROM users');
+    res.json({ message: 'Database test successful', userCount: result.count });
+  } catch (error) {
+    res.status(500).json({ error: 'Database test failed', details: (error as Error).message });
+  }
+});
+
 // Start server
 const startServer = async () => {
   try {
-    // Initialize database
     await db.initialize();
+    console.log('Database initialized');
     
     app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-      console.log(`Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:5173'}`);
+      console.log(`Test server running on port ${PORT}`);
     });
   } catch (error) {
     console.error('Failed to start server:', error);
-    process.exit(1);
   }
 };
 
