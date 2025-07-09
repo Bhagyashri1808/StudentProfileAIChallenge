@@ -10,17 +10,33 @@ router.get('/profile', requireAuth, async (req: AuthenticatedRequest, res) => {
     const user = req.user!;
     
     // Get student profile
-    const profile = await db.get(
+    let profile = await db.get(
       'SELECT * FROM student_profiles WHERE user_id = ?',
       [user.id]
     );
 
+    // If no profile exists, create an empty one
     if (!profile) {
-      res.status(404).json({
-        error: 'Profile not found',
-        message: 'Student profile not found'
-      });
-      return;
+      console.log(`Creating empty profile for user ${user.id}`);
+      
+      await db.run(
+        'INSERT INTO student_profiles (user_id, created_at, updated_at) VALUES (?, datetime("now"), datetime("now"))',
+        [user.id]
+      );
+      
+      // Get the newly created profile
+      profile = await db.get(
+        'SELECT * FROM student_profiles WHERE user_id = ?',
+        [user.id]
+      );
+      
+      if (!profile) {
+        res.status(500).json({
+          error: 'Failed to create profile',
+          message: 'Could not create student profile'
+        });
+        return;
+      }
     }
 
     // Get goals, skills, and interests
@@ -59,7 +75,7 @@ router.get('/profile', requireAuth, async (req: AuthenticatedRequest, res) => {
 router.put('/profile', requireAuth, async (req: AuthenticatedRequest, res) => {
   try {
     const user = req.user!;
-    const { studentId, yearLevel, major, bio } = req.body;
+    const { student_id, year_level, major, bio } = req.body;
 
     // Get existing profile
     const profile = await db.get(
@@ -78,7 +94,7 @@ router.put('/profile', requireAuth, async (req: AuthenticatedRequest, res) => {
     // Update profile
     await db.run(
       'UPDATE student_profiles SET student_id = ?, year_level = ?, major = ?, bio = ?, updated_at = CURRENT_TIMESTAMP WHERE user_id = ?',
-      [studentId || null, yearLevel || null, major || null, bio || null, user.id]
+      [student_id || null, year_level || null, major || null, bio || null, user.id]
     );
 
     // Get updated profile
