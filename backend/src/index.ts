@@ -5,6 +5,7 @@ import session from 'express-session';
 import { db } from './config/sqlite-database';
 import authRoutes from './routes/auth';
 import profileRoutes from './routes/profile';
+import fileRoutes from './routes/files';
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ app.use(session({
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/student', profileRoutes);
+app.use('/api/files', fileRoutes);
 
 // Basic route
 app.get('/', (_, res) => {
