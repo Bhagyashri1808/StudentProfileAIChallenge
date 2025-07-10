@@ -13,6 +13,7 @@ import {
   type CreateSkillRequest,
   type CreateInterestRequest,
   type UpdateProfileRequest,
+  type UploadedFile,
 } from "../types/profile";
 
 const API_BASE_URL =
@@ -181,6 +182,61 @@ class ApiService {
   async deleteInterest(id: number): Promise<{ message: string }> {
     return this.request<{ message: string }>(`/student/interests/${id}`, {
       method: 'DELETE',
+    });
+  }
+
+  // File endpoints
+  async uploadResume(file: File): Promise<{
+    message: string;
+    file: UploadedFile;
+  }> {
+    const formData = new FormData();
+    formData.append('resume', file);
+
+    const response = await fetch(`${API_BASE_URL}/files/upload/resume`, {
+      method: 'POST',
+      credentials: 'include',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Upload failed');
+    }
+
+    return response.json();
+  }
+
+  async getResumes(): Promise<{
+    files: UploadedFile[];
+  }> {
+    return this.request<{
+      files: UploadedFile[];
+    }>('/files/resumes');
+  }
+
+  async downloadFile(fileId: number): Promise<Blob> {
+    const response = await fetch(`${API_BASE_URL}/files/download/${fileId}`, {
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Download failed');
+    }
+
+    return response.blob();
+  }
+
+  async deleteFile(fileId: number): Promise<{ message: string }> {
+    return this.request<{ message: string }>(`/files/${fileId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  async setPrimaryResume(fileId: number): Promise<{ message: string }> {
+    return this.request<{ message: string }>(`/files/${fileId}/primary`, {
+      method: 'PUT',
     });
   }
 

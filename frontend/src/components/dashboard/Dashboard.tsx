@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import StudentProfile from '../profile/StudentProfile';
+import ResumeManager from '../resume/ResumeManager';
 
 const Dashboard: React.FC = () => {
   const { user, logout } = useAuth();
-  const [currentView, setCurrentView] = useState<'dashboard' | 'profile'>('dashboard');
+  const [currentView, setCurrentView] = useState<'dashboard' | 'profile' | 'resume'>('dashboard');
+
+  const getNavButtonClass = (viewName: 'dashboard' | 'profile' | 'resume') => {
+    return `px-3 py-2 rounded-md text-sm font-medium ${
+      currentView === viewName
+        ? 'bg-blue-100 text-blue-700'
+        : 'text-gray-500 hover:text-gray-700'
+    }`;
+  };
 
   const handleLogout = async () => {
     try {
@@ -22,6 +31,10 @@ const Dashboard: React.FC = () => {
     return <StudentProfile onNavigateBack={() => setCurrentView('dashboard')} />;
   }
 
+  if (currentView === 'resume') {
+    return <ResumeManager onNavigateBack={() => setCurrentView('dashboard')} />;
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -36,23 +49,21 @@ const Dashboard: React.FC = () => {
                 <nav className="flex space-x-4">
                   <button
                     onClick={() => setCurrentView('dashboard')}
-                    className={`px-3 py-2 rounded-md text-sm font-medium ${
-                      currentView === 'dashboard'
-                        ? 'bg-blue-100 text-blue-700'
-                        : 'text-gray-500 hover:text-gray-700'
-                    }`}
+                    className={getNavButtonClass('dashboard')}
                   >
                     Dashboard
                   </button>
                   <button
                     onClick={() => setCurrentView('profile')}
-                    className={`px-3 py-2 rounded-md text-sm font-medium ${
-                      currentView !== 'dashboard'
-                        ? 'bg-blue-100 text-blue-700'
-                        : 'text-gray-500 hover:text-gray-700'
-                    }`}
+                    className={getNavButtonClass('profile')}
                   >
                     My Profile
+                  </button>
+                  <button
+                    onClick={() => setCurrentView('resume')}
+                    className={getNavButtonClass('resume')}
+                  >
+                    Resume
                   </button>
                 </nav>
               )}
@@ -217,10 +228,16 @@ const Dashboard: React.FC = () => {
                       </li>
                     </ul>
                     <div className="mt-4">
-                      <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-3">
+                      <button 
+                        onClick={() => setCurrentView('profile')}
+                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-3"
+                      >
                         Complete Profile
                       </button>
-                      <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+                      <button 
+                        onClick={() => setCurrentView('resume')}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                      >
                         Upload Resume
                       </button>
                     </div>
